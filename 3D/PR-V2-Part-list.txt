@@ -1,0 +1,17 @@
+Quantità Codice Descrizione
+1         PR-MOT  Motoriduttore a doppia uscita
+1         PR0     Base di fissaggio anteriore
+2         PR1     Leva
+4         PR6     Braccio1
+4         PR7     Griffa
+6         PR8     Distanziale
+1         PR9     Base di fissaggio posteriore
+3                 Vite TCEI M4 x 35 zn
+2                 Vite TCEI M4 x 25 zn
+5                 Dado autofrenante M4
+2                 Spina cilindrica D.4 x 28
+2                 Vite TCIC autofilettante 2.5 x 10
+2                 Vite TCIC M6 x 65 (Solo per Versione con frizione)
+4                 Rondella 6 x 20 (Solo per Versione con frizione)
+2                 Dado autofrenante M6 (Solo per Versione con frizione)
+2                 Molla a compressione 10mm 
