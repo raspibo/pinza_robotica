@@ -1,4 +1,3 @@
-#line 1 "pinza_robotica_2.ino"
 /********************************************************
  * Progetto Pinza Robotica - un esperimento del gruppo robottini di Raspibo 
  ********************************************************/
@@ -55,6 +54,7 @@ PID PID_f(&Input_f, &Output_f, &Setpoint_f, consKp_f, consKi_f, consKd_f, DIRECT
 #define OffSet_Forza 510
 #define InMax 255
 #define InMin 1
+#define PWM_MOT_34 32
 //#define Forza_Max 255
 
 
@@ -98,7 +98,8 @@ else{Serial.print("0");}
  Serial.print(Input_f);
  Serial.print(" - pinza_pwm: ");
  Serial.print(pinza_pwm);
- 
+ Serial.print(" - Laterale: ");
+ Serial.println(Joyr);
  //Serial.print(" - Out: ");
  //Serial.print(Output_f);
  Serial.println(" ");
@@ -187,8 +188,15 @@ void loop()
   if(pinza_pwm>255){pinza_pwm=65536-pinza_pwm;}
   if(pinza_pwm>255){pinza_pwm=255;}
   Joyr=analogRead(P_SETPT_ROT);
-  Serial.println(Joyr);
-  //analogWrite(MOT_34_PWM,pinza_pwm);
+  if (Joyr<250) {
+  analogWrite(MOT_34_PWM,PWM_MOT_34+((512-Joyr)/6));
+  digitalWrite(MOT_34_DIR,LOW);
+  } else if (Joyr>750) {
+  analogWrite(MOT_34_PWM,PWM_MOT_34+((Joyr-512)/6));
+  digitalWrite(MOT_34_DIR,HIGH);
+  } else { 
+  analogWrite(MOT_34_PWM,0);
+  }
   
   OCR1A = pinza_pwm;
 
