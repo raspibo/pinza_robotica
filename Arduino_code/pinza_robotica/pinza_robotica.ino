@@ -48,6 +48,10 @@ PID PID_f(&Input_f, &Output_f, &Setpoint_f, consKp_f, consKi_f, consKd_f, DIRECT
 //Bottone Joypstick usato per memorizzare la posizione della pinza
 #define P_OLD 6
 #define Led_R 13
+//Sensore di forza in grafene
+#define GRAPH_PIN A5
+//Accende il led giallo quando la pinza ha presa
+#define GRAPH_FEEDBACK 7
 
 //   Dichiarazione variabili    
 #define DEBUG_INTERVAL 1000
@@ -78,6 +82,7 @@ int Mem_Joyp=0;
 int Forza_Max= 255;
 boolean Click_On =0;
 boolean Mem_Click =0;
+int Graph_pin=0;
 
 void debug() {
 // Serial.print(pinza_pwm); 
@@ -100,9 +105,9 @@ else{Serial.print("0");}
  Serial.print(" - pinza_pwm: ");
  Serial.print(pinza_pwm);
  Serial.print(" - Laterale: ");
- Serial.println(Joyr);
- //Serial.print(" - Out: ");
- //Serial.print(Output_f);
+ Serial.print(Joyr);
+ Serial.print(" - Graph_pin: ");
+ Serial.print(Graph_pin);
  Serial.println(" ");
 } 
 
@@ -116,6 +121,8 @@ void setup()
   pinMode(MOT_34_DIR, OUTPUT); 
   pinMode(Led_R, OUTPUT);
   pinMode(P_OLD, INPUT_PULLUP);
+  pinMode(GRAPH_PIN, INPUT_PULLUP); 
+  pinMode(GRAPH_FEEDBACK, OUTPUT);
   time=millis();
   //registri TMR1 per pilotare i PWM a 16 MHz
   TCCR1A = _BV(COM1A1) | _BV(COM1B1) | _BV(WGM11) | _BV(WGM10);
@@ -198,7 +205,12 @@ void loop()
   } else { 
   analogWrite(MOT_34_PWM,0);
   }
-  
+  Graph_pin=analogRead(GRAPH_PIN);
+  if (Graph_pin<350) {
+    digitalWrite(GRAPH_FEEDBACK,HIGH);
+  } else {
+    digitalWrite(GRAPH_FEEDBACK,LOW);
+  }
   OCR1A = pinza_pwm;
 
 }
