@@ -1,4 +1,3 @@
-#line 1 "pinza_robotica_2.ino"
 /********************************************************
  * Progetto Pinza Robotica - un esperimento del gruppo robottini di Raspibo 
  ********************************************************/
@@ -108,7 +107,6 @@ else{Serial.print("0");}
  Serial.print(Joyr);
  Serial.print(" - Graph_pin: ");
  Serial.print(Graph_pin);
- Serial.println(" ");
 } 
 
 void setup()
